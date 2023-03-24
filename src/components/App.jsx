@@ -49,12 +49,10 @@ export class App extends Component {
     const { good, neutral, bad } = this.state;
     return good + neutral + bad > 0 ? true : false;
   }
-   
     
   };
 
-
-   Notification = () => {
+    Notification = () => {
       const { good, neutral, bad } = this.state;
       const title = <span>There is no feedback</span>
     return good + neutral + bad > 0 ? ' ' : title;
