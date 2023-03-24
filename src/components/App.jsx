@@ -43,7 +43,7 @@ export class App extends Component {
       
       
     },
-    isVisibleStatistics: () => {
+    Notification: () => {
       const { good, neutral, bad } = this.state;
       const title = 'No feedback given';
     return good + neutral + bad > 0 ? ' ' : title;
