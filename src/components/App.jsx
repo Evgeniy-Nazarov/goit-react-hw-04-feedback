@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FeedbackButton } from "./Feedback/Feedback";
 import { ContainerFeedback, FeedbackTitle } from './Feedback/Feedback.styled';
+import { StatisticsTitle } from './Statistics/Statistic.styled';
 import { Statistics } from "./Statistics/Statistics";
 
 
@@ -43,14 +44,23 @@ export class App extends Component {
       
       
     },
-    Notification: () => {
-      const { good, neutral, bad } = this.state;
-      const title = 'No feedback given';
-    return good + neutral + bad > 0 ? ' ' : title;
-    }
+
+    IsShow: () => {
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad > 0 ? true : false;
+  }
+   
     
   };
 
+
+   Notification = () => {
+      const { good, neutral, bad } = this.state;
+      const title = <span>There is no feedback</span>
+    return good + neutral + bad > 0 ? ' ' : title;
+  }
+  
+  
   
 
 
@@ -61,7 +71,7 @@ export class App extends Component {
     <ContainerFeedback>
       <FeedbackTitle>Please leave Feedback</FeedbackTitle>
       <FeedbackButton methodsButton={this.methodsButton } />
-                <h2>Statistics</h2>
+      <StatisticsTitle>Statistics {this.Notification()}</StatisticsTitle>
       <Statistics methodsStatistics={this.methodsStatistics} state={ this.state} />
     </ContainerFeedback>
   );
