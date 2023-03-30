@@ -1,8 +1,7 @@
+import PropTypes from 'prop-types';
 import { StatisticItem, StatisticWrapper } from "./Statistic.styled";
 
 export const Statistics = ({ methodsStatistics: { countTotalFeedback, countPositiveFeedbackPercentage, IsShow }, state: { good, neutral, bad } }) => {
-    
-
     return (
         <>
             <StatisticWrapper IsShow={IsShow()}> 
@@ -14,4 +13,17 @@ export const Statistics = ({ methodsStatistics: { countTotalFeedback, countPosit
             </StatisticWrapper>
             </>
         );
-    }
+}
+    
+Statistics.propTypes = {
+    methodsStatistics: PropTypes.shape({
+        countTotalFeedback: PropTypes.func.isRequired,
+        countPositiveFeedbackPercentage: PropTypes.func.isRequired,
+        IsShow: PropTypes.func.isRequired,
+    }),
+    state: PropTypes.shape({
+        good: PropTypes.number.isRequired,
+        neutral: PropTypes.number.isRequired,
+        bad: PropTypes.number.isRequired,
+    })
+}

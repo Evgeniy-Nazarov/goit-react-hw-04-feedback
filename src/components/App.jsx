@@ -5,7 +5,6 @@ import { StatisticsTitle } from './Statistics/Statistic.styled';
 import { Statistics } from "./Statistics/Statistics";
 
 
-
 export class App extends Component {
 
   state = {
@@ -40,9 +39,7 @@ export class App extends Component {
     countPositiveFeedbackPercentage: () => {
       const { good, neutral, bad } = this.state;
       const total = '0'
-      return good + neutral + bad > 0 ? Math.round((good / (good + neutral + bad)) * 100) : total;
-      
-      
+      return good + neutral + bad > 0 ? Math.round((good / (good + neutral + bad)) * 100) : total;  
     },
 
     IsShow: () => {
@@ -57,13 +54,6 @@ export class App extends Component {
       const title = <span>There is no feedback</span>
     return good + neutral + bad > 0 ? ' ' : title;
   }
-  
-  
-  
-
-
-
-
   render () {
   return (
     <ContainerFeedback>
