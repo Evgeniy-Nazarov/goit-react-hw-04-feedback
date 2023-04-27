@@ -1,67 +1,59 @@
-import React, { Component } from 'react'
-import { FeedbackButton } from "./Feedback/Feedback";
+import React, { useState } from 'react';
 import { ContainerFeedback, FeedbackTitle } from './Feedback/Feedback.styled';
 import { StatisticsTitle } from './Statistics/Statistic.styled';
-import { Statistics } from "./Statistics/Statistics";
+import { Statistics } from './Statistics/Statistics';
+import { FeedbackButton } from './Feedback/Feedback';
 
+export const App = () => {
+  const [good, setgood] = useState(0);
+  const [neutral, setneutral] = useState(0);
+  const [bad, setbad] = useState(0);
 
-export class App extends Component {
-
-  state = {
-        good: 0,
-        neutral: 0,
-        bad: 0
+  const onGood = () => {
+    setgood(prevGood => prevGood + 1);
   };
 
-  methodsButton = {
-    onGood: () => {
-      this.setState(prevState => ({
-        good: prevState.good + 1
-      }));
-    }, 
-    onNeutral: () => {
-      this.setState(prevState => ({
-        neutral: prevState.neutral + 1
-      }));
-    },
-    onBad: () => {
-      this.setState(prevState => ({
-        bad: prevState.bad + 1
-      }));
-    }
+  const onNeutral = () => {
+    setneutral(prevNeutral => prevNeutral + 1);
   };
 
-  methodsStatistics = {
-    countTotalFeedback: () => {
-      const { good, neutral, bad } = this.state;
-      return good + neutral + bad;
-    },
-    countPositiveFeedbackPercentage: () => {
-      const { good, neutral, bad } = this.state;
-      const total = '0'
-      return good + neutral + bad > 0 ? Math.round((good / (good + neutral + bad)) * 100) : total;  
-    },
+  const onBad = () => {
+    setbad(prevBad => prevBad + 1);
+  };
 
-    IsShow: () => {
-    const { good, neutral, bad } = this.state;
+  const countTotalFeedback = () => {
+    return good + neutral + bad;
+  };
+
+  const countPositiveFeedbackPercentage = () => {
+    const total = '0';
+    return good + neutral + bad > 0
+      ? Math.round((good / (good + neutral + bad)) * 100)
+      : total;
+  };
+
+  const IsShow = () => {
     return good + neutral + bad > 0 ? true : false;
-  }
-    
   };
 
-    Notification = () => {
-      const { good, neutral, bad } = this.state;
-      const title = <span>There is no feedback</span>
+  const Notification = () => {
+    const title = <span>There is no feedback</span>;
     return good + neutral + bad > 0 ? ' ' : title;
-  }
-  render () {
+  };
+
   return (
     <ContainerFeedback>
       <FeedbackTitle>Please leave Feedback</FeedbackTitle>
-      <FeedbackButton methodsButton={this.methodsButton } />
-      <StatisticsTitle>Statistics {this.Notification()}</StatisticsTitle>
-      <Statistics methodsStatistics={this.methodsStatistics} state={ this.state} />
+      <FeedbackButton onGood={onGood} onNeutral={onNeutral} onBad={onBad} />
+      <StatisticsTitle>Statistics {Notification()}</StatisticsTitle>
+      <Statistics
+        countTotalFeedback={countTotalFeedback}
+        countPositiveFeedbackPercentage={countPositiveFeedbackPercentage}
+        IsShow={IsShow}
+        good={good}
+        neutral={neutral}
+        bad={bad}
+      />
     </ContainerFeedback>
   );
-    }
 };
